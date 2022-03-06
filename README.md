@@ -5,8 +5,9 @@ Supervised Normalized Cut or SNC is a graph-based method for a binary classifica
 <br/>
 The LabelConfidence-SNC or LCSNC is built upon SNC with the goal to handle noisy labels. The "confidence" of the given labels of training samples or labeled samples are incorporated into the construction of the graph on which we solve for the minimum cut. <br> 
 <br/>
-Codes provided here are Python codes of SNC and LCSNC. SNC has been implemented earlier but only in Matlab. Additionally, the code of SNC provided here also includes an option to use a sparsified graph as an alternative to a fully connected graph that was used in the original work of SNC.
+Codes provided here are Python codes of SNC (SNC.py) and LCSNC (LCSNC.py). SNC has been implemented earlier but only in Matlab. Additionally, the code of SNC provided here also includes an option to use a sparsified graph as an alternative to a fully connected graph that was used in the original work of SNC.
 <br/>
+This is a work in progress. This repository will be updated regularly.
 ## References
 <a id="1">[1]</a> 
 Baumann, Philipp, Dorit S. Hochbaum, and Yan T. Yang. "A comparative study of the leading machine learning techniques and two new optimization algorithms." European journal of operational research 272.3 (2019): 1041-1057.
