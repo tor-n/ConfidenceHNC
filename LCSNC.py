@@ -124,6 +124,18 @@ class LCSNC(BaseEstimator, ClassifierMixin):
         elif w_metric == 'inverse':
             w = 1/(1 + dist**epsilon)
         return w
+    
+    @staticmethod
+    def _cut_to_label(cuts):
+        # input: cuts dictionary where key = node index and values = labels for different lambda breakpoints
+        # output: array of labels, size of array is (numsamples, numbreakpoints)
+        n = len(cuts.keys()) - 2
+        if n-1 not in cuts.keys():
+            print("check")
+            n = np.max(cuts.keys()) + 1
+        r = len(cuts[0]) # numbreakpoints
+        y_array = np.array([c[i] for i in range(n)]).T
+        return y_array
 
     def predict(self, X_test):
 
