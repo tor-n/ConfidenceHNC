@@ -128,14 +128,27 @@ class LCSNC(BaseEstimator, ClassifierMixin):
     @staticmethod
     def _cut_to_label(cuts):
         # input: cuts dictionary where key = node index and values = labels for different lambda breakpoints
-        # output: array of labels, size of array is (numsamples, numbreakpoints)
+        # output: array of labels, size of array is (numbreakpoints, numsamples)
         n = len(cuts.keys()) - 2
         if n-1 not in cuts.keys():
             print("check")
             n = np.max(cuts.keys()) + 1
-        r = len(cuts[0]) # numbreakpoints
-        y_array = np.array([c[i] for i in range(n)]).T
+        y_array = np.array([cuts[i] for i in range(n)]).T
         return y_array
+    
+    @staticmethod
+    def _evaluate(target, pred_arr, metric='accuracy'):
+        n = len(target)
+        n_bps, n_all = pred_arr.shape
+        if n_all > n:
+            pred_arr = pred_arr[:,-n:]
+        
+        if metric == 'accuracy':
+            scores = [accuracy_score(target, pred_arr[i,:]) for i in range(n_bps)]
+        elif metric == 'F1':
+            scores = [f1_score(target, pred_arr[i,:]) for i in range(n_bps)]
+        
+        return scores
 
     def predict(self, X_test):
 
