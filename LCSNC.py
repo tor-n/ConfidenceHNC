@@ -7,13 +7,12 @@ import pseudoflow
 class LCSNC(BaseEstimator, ClassifierMixin):
 
     def __init__(self, lambda_parameter=0, deviation_parameter=1,
-                 discount_factor=1, k_frac=0.1, neighboring=True, 
+                 k_frac=0.1, neighboring=True, 
                  distance_metric='euclidean', weight='RBF', epsilon=1, 
                  confidence_function='knn'):
         self.epsilon = epsilon
         self.lambda_parameter = lambda_parameter
         self.deviation_parameter = deviation_parameter
-        self.discount_factor = discount_factor
         self.k_frac = k_frac
         self.neighboring = neighboring
         self.distance_metric = distance_metric
@@ -102,11 +101,6 @@ class LCSNC(BaseEstimator, ClassifierMixin):
         
         confidence = k*deviation_parameter*confidence
         
-        #confidence = np.exp(deviation_parameter*confidence) - 1
-        
-        #for i in range(X_train.shape[0]):
-        #    confidence[i] = np.exp(deviation_parameter*confidence[i])-1
-        
         return confidence
     
     def _get_neighbor(self, dist_arr, numneigh=10):
@@ -154,7 +148,6 @@ class LCSNC(BaseEstimator, ClassifierMixin):
 
         epsilon = self.epsilon
         lambda_parameter = self.lambda_parameter
-        discount_factor = self.discount_factor
         X_train = self.X_train
         y_train = self.y_train
         neighboring = self.neighboring
@@ -192,24 +185,8 @@ class LCSNC(BaseEstimator, ClassifierMixin):
             similarities = self._get_weight(distances)
 
         # Get source-adjacent weights
-        pos_booleans = y_train == 1
-        idx_positives = np.arange(n_train)[pos_booleans]
-        idx_negatives = np.arange(n_train)[np.invert(pos_booleans)]
         idx_unlabeled = np.arange(n_train, n_samples)
-        
-        source_weights = similarities[idx_unlabeled, :][:, idx_positives].sum(axis=1)
-        source_weights += similarities[idx_unlabeled, :][:, 0:n_train].sum(axis=1) * discount_factor * lambda_parameter
-        source_weights += similarities[idx_unlabeled, :][:, n_train:].sum(axis=1) * lambda_parameter
-
-        # Get sink-adjacent weights
-        sink_weights = similarities[idx_unlabeled, :][:, idx_negatives].sum(axis=1)
-
-        # Adjust source and sink weights
-        # for each i, look at w_si and w_it, take the min and subtract from both
-        # we do it on each i (each pair of (s,i) and (i,t)) separately
-        min_weights = np.minimum(source_weights, sink_weights, )
-        source_weights -= min_weights
-        sink_weights -= min_weights
+        source_weights = similarities[idx_unlabeled, :].sum(axis=1) * lambda_parameter
 
         # create graph
         if neighboring:
@@ -232,7 +209,6 @@ class LCSNC(BaseEstimator, ClassifierMixin):
         for i in range(n_test):
             # connect unlabeled samples to source/sink
             G.add_edge(-1, i+n_train, const=source_weights[i])
-            G.add_edge(i+n_train, -2, const=sink_weights[i])
             
         #self.predicted_graph = G
 
