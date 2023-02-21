@@ -6,16 +6,7 @@ import copy as cp
 import subprocess
 import os
 
-#import pynndescent as pynn
-
-# for classifiers in this python file 
-# we use approx knn instead of knn to do sparsification
-# we use a python library called pynndescent
-
 class ParametricHNC(BaseEstimator, ClassifierMixin):
-    
-    ## without confidence label
-    ## all labeled samples must be in the source/sink set as given
 
     def __init__(self, list_lambda, k=15, neighboring=True, 
                  distance_metric='euclidean', weight='RBF', epsilon=1, add_neighbor=True, adjust_lambda=False):
