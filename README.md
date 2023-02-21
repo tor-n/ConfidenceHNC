@@ -5,7 +5,7 @@ HNC is a graph-based method for a binary classification task where a minimum cut
 <br/>
 Confidence HNC is developed from HNC with the goal to handle noisy labels. The "confidence" of the given labels of training samples or labeled samples are incorporated into the construction of the graph on which we solve for the minimum cut. <br> 
 <br/>
-Codes provided here are Python codes of HNC (HNC.py) and CHNC (LCSNC.py). HNC has been implemented earlier but only in Matlab. Additionally, the code of HNC provided here also includes an option to use a sparsified graph as an alternative to a fully connected graph that was used in the original work of HNC. <br>
+Codes provided here are Python codes of HNC (HNC.py) and CHNC (CHNC.py). HNC has been implemented earlier but only in Matlab. Additionally, the code of HNC provided here also includes an option to use a sparsified graph as an alternative to a fully connected graph that was used in the original work of HNC. <br>
 <br/>
 This is a work in progress. This repository will be updated regularly.
 ## References
