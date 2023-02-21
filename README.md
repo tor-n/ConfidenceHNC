@@ -1,5 +1,5 @@
-# LabelConfidence-SNC (Supervised Normalized Cut)
-LabelConfidence-SNC is a graph-based semisupervised learning method that is based on Supervised Normalized Cut [[1]](#1). <br>
+# Confidence-HNC (Confidence Hochbaum's Normalized Cut)
+Confidence-HNC or CHNC is a graph-based semisupervised learning method that is based on Hochbaums' Normalized Cut, which is also referred to as Supervised Normalized Cut in [[1]](#1). <br>
 <br/>
 Supervised Normalized Cut or SNC is a graph-based method for a binary classification task where a minimum cut problem is solved on a graph instance that represents data samples as graph vertices and their similarities as edge weights. The solution to the minimum cut problem provides the predicted labels of the unlabeled samples. The algorithm that is used for solving the minimum cut problem is the pseudoflow algorithm [[2]](#2). The instruction about the package of pseudoflow algorithm can be found [here](https://github.com/hochbaumGroup/pseudoflow-parametric-cut). <br> 
 <br/>
