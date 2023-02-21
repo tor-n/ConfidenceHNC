@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from scipy.spatial.distance import pdist, squareform
 import pseudoflow
 
-class SNC(BaseEstimator, ClassifierMixin):
+class HNC(BaseEstimator, ClassifierMixin):
 
     def __init__(self, lambda_parameter=0, 
                  discount_factor=1, k_frac=0.1, neighboring=True, 
